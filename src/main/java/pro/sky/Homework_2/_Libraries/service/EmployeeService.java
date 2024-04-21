@@ -10,4 +10,5 @@ public interface EmployeeService {
     Employee find(String firstName, String lastName);
 
     Collection<Employee> findAll();
+    void validate(String firstName, String lastName);
 }

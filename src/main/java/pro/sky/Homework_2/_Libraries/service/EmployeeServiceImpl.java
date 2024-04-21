@@ -1,7 +1,9 @@
 package pro.sky.Homework_2._Libraries.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.Homework_2._Libraries.exceptions.EmployeeAlreadyAddedException;
+import pro.sky.Homework_2._Libraries.exceptions.EmployeeIncorrectDataException;
 import pro.sky.Homework_2._Libraries.exceptions.EmployeeNotFoundException;
 import pro.sky.Homework_2._Libraries.model.Employee;
 
@@ -27,6 +29,7 @@ public class EmployeeServiceImpl implements pro.sky.Homework_2._Libraries.servic
         if (employeeList.containsKey(key)) {
             throw new EmployeeAlreadyAddedException("Сотрудник уже добавлен");
         }
+        validate(firstName, lastName);
         Employee employee = new Employee(firstName, lastName);
         employeeList.put(key, employee);
         return employee;
@@ -55,6 +58,19 @@ public class EmployeeServiceImpl implements pro.sky.Homework_2._Libraries.servic
     public Collection<Employee> findAll() {
         return new ArrayList<>(employeeList.values());
     }
+
+    @Override
+    public void validate(String firstName, String lastName) {
+        validateName(firstName);
+        validateName(lastName);
+    }
+
+    private void validateName(String name) {
+        if (StringUtils.isBlank(name) || !StringUtils.isAlpha(name)){
+            throw new EmployeeIncorrectDataException("Некорректное имя");
+        }
+    }
+
     private String getKey(String firstName, String lastName) {
         return firstName + lastName;
     }
