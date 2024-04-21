@@ -1,5 +1,7 @@
 package pro.sky.Homework_2._Libraries.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 import java.util.Random;
 
@@ -11,8 +13,8 @@ public class Employee {
 
     public Employee(String employeeFirstName, String employeeLastName) {
         Random random = new Random();
-        this.employeeFirstName = employeeFirstName;
-        this.employeeLastName = employeeLastName;
+        this.employeeFirstName = StringUtils.capitalize(employeeFirstName);
+        this.employeeLastName = StringUtils.capitalize(employeeLastName);
         this.departmentId = random.nextInt(2) + 1;
         this.salary = random.nextInt(100) + 10;
     }
